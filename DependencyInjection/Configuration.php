@@ -12,8 +12,13 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('sendinblue_api');
+        $treeBuilder = new TreeBuilder('sendinblue_api');
+        if (method_exists($treeBuilder, 'getRootNode')) {
+            $rootNode = $treeBuilder->getRootNode();
+        } else {
+            // BC layer for symfony/config 4.1 and older
+            $rootNode = $treeBuilder->root('sendinblue_api');
+        }
 
         $rootNode->children()
                     ->scalarNode('api_key')->isRequired()->cannotBeEmpty()->end()
