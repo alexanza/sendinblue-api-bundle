@@ -22,7 +22,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode->children()
                     ->scalarNode('api_key')->isRequired()->cannotBeEmpty()->end()
-                    ->integerNode('timeout')->min(0)->max(60000)->defaultValue(30000)->end() //default timeout: 30 secs
+                    ->integerNode('timeout')->min(0)->defaultValue(30000)->end() //default timeout: 30 secs
                   ->end();
 
         return $treeBuilder;
